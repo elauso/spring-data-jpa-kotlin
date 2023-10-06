@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: 'spring-data-jpa-kotlin'
+  main:
+    allow-bean-definition-overriding: true
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate.dialect: org.hibernate.dialect.MySQLDialect
+      hibernate.format_sql: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/db_request
+    username: request
+    password: request
+    driver-class-name: com.mysql.jdbc.Driver
+
+logging:
+  level:
+    org.springframework: INFO
+    net.elau.example.springdatajpakotlin: DEBUG
+  pattern.level: '%5p [${spring.application.name:},%mdc{trace_id:-},%mdc{span_id:-}]'
