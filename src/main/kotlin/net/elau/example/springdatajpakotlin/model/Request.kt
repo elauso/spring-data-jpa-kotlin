@@ -2,17 +2,19 @@ package net.elau.example.springdatajpakotlin.model
 
 import jakarta.persistence.*
 import jakarta.persistence.GenerationType.IDENTITY
-import jakarta.persistence.InheritanceType.JOINED
+import jakarta.persistence.InheritanceType.SINGLE_TABLE
 import java.util.*
 
 @Entity
-@Inheritance(strategy = JOINED)
-abstract class Request(
+@Inheritance(strategy = SINGLE_TABLE)
+@DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.INTEGER)
+open class Request protected constructor(
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(nullable = false)
-    open var id: Long? = null,
-
+    val id: Long? = null,
     @Column(nullable = false)
-    open var requestCode: UUID? = null
+    val requestCode: UUID,
+    @Column(insertable = false, updatable = false)
+    val type: RequestType
 )

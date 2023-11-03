@@ -2,8 +2,14 @@
 # Post issue
 curl -i -H "Content-Type: application/json" http://localhost:8080/issues -d '{"offerCode":"67d15acd-93cf-4b12-a66d-0146f7ca8507"}'
 
+# Get issue
+curl -i -H "Accept: application/json" http://localhost:8080/issues/1
+
 # Post reissue
 curl -i -H "Content-Type: application/json" http://localhost:8080/reissues -d '{"cardCancelledCode":"a86fee41-2198-4be3-a512-15cc2244845f"}'
+
+# Get reissue
+curl -i -H "Accept: application/json" http://localhost:8080/reissues/2
 
 # Log-in mysql
 mysql -uroot -p

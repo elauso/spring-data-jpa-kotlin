@@ -1,0 +1,35 @@
+package net.elau.example.springdatajpakotlin.repository
+
+import net.elau.example.springdatajpakotlin.model.Issue
+import net.elau.example.springdatajpakotlin.model.RequestType
+import net.elau.example.springdatajpakotlin.model.RequestType.ISSUE
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestInstance
+import org.junit.jupiter.api.extension.ExtendWith
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
+import org.springframework.test.context.junit.jupiter.SpringExtension
+import java.util.*
+
+@DataJpaTest
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+class IssueRepositoryTest @Autowired constructor(private val issueRepository: IssueRepository) {
+
+    val issue = Issue(requestCode = UUID.randomUUID(), offerCode = UUID.randomUUID())
+
+    @BeforeAll
+    fun setup() {
+        issueRepository.save(issue)
+    }
+
+    @Test
+    fun `should find all issues`() {
+        val issue = issueRepository.findAll().iterator().next()
+        Assertions.assertNotNull(issue.id)
+        Assertions.assertNotNull(issue.requestCode)
+        Assertions.assertNotNull(issue.offerCode)
+        Assertions.assertEquals(ISSUE, issue.type)
+    }
+}
